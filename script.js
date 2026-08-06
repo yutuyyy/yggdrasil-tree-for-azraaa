@@ -192,11 +192,12 @@
   }
 
   var CANOPY_CX = 400;
-  var CANOPY_CY = 300;
-  var SCALE = 9.5;
+  var CANOPY_CY = 288;   // shifted up so the shape sits over the branches
+  var SCALE_X = 8.6;     // horizontal reach — matches the branch spread
+  var SCALE_Y = 6.1;     // vertical reach — kept short so it stays above the trunk
 
   function buildLeafPositions() {
-    var layers = [0.32, 0.46, 0.58, 0.7, 0.83, 0.95, 1.05];
+    var layers = [0.32, 0.46, 0.58, 0.7, 0.82, 0.93, 1.0];
     var points = [];
     for (var li = 0; li < layers.length; li++) {
       var layerScale = layers[li];
@@ -204,10 +205,10 @@
       for (var i = 0; i < count; i++) {
         var t = (i / count) * Math.PI * 2 + rand(-0.05, 0.05);
         var pt = heartPoint(t);
-        var jitterX = rand(-5, 5);
-        var jitterY = rand(-5, 5);
-        var sx = CANOPY_CX + pt.x * SCALE * layerScale + jitterX;
-        var sy = CANOPY_CY - pt.y * SCALE * layerScale + jitterY;
+        var jitterX = rand(-4, 4);
+        var jitterY = rand(-4, 4);
+        var sx = CANOPY_CX + pt.x * SCALE_X * layerScale + jitterX;
+        var sy = CANOPY_CY - pt.y * SCALE_Y * layerScale + jitterY;
         points.push({ x: sx, y: sy, size: rand(9, 15) });
       }
     }
@@ -270,8 +271,8 @@
   function spawnSparkles() {
     for (var i = 0; i < 16; i++) {
       var s = document.createElementNS(NS, 'circle');
-      var x = CANOPY_CX + rand(-160, 160);
-      var y = CANOPY_CY + rand(-140, 140);
+      var x = CANOPY_CX + rand(-150, 150);
+      var y = CANOPY_CY + rand(-110, 110);
       s.setAttribute('cx', x);
       s.setAttribute('cy', y);
       s.setAttribute('r', rand(1.4, 2.8));
